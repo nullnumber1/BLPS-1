@@ -1,0 +1,95 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="1" author="nullnumber1">
+        <createTable tableName="payment_type">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="type" type="varchar(255)"/>
+            <column name="amount" type="decimal(19, 2)"/>
+        </createTable>
+
+        <createTable tableName="oktmo">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="code" type="varchar(255)"/>
+        </createTable>
+
+        <createTable tableName="payer">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)"/>
+            <column name="inn" type="bigint"/>
+        </createTable>
+
+        <createTable tableName="payee">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)"/>
+            <column name="inn" type="bigint"/>
+        </createTable>
+
+        <createTable tableName="payment">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="payment_type_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_payment_payment_type"
+                             referencedTableName="payment_type" referencedColumnNames="id"/>
+            </column>
+            <column name="oktmo_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_payment_oktmo"
+                             referencedTableName="oktmo" referencedColumnNames="id"/>
+            </column>
+            <column name="payer_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_payment_payer"
+                             referencedTableName="payer" referencedColumnNames="id"/>
+            </column>
+            <column name="payee_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_payment_payee"
+                             referencedTableName="payee" referencedColumnNames="id"/>
+            </column>
+            <column name="for_self" type="boolean"/>
+            <column name="status" type="varchar(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2" author="nullnumber1">
+        <createTable tableName="inn_repository">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+        </createTable>
+
+        <insert tableName="inn_repository">
+            <column name="id" valueNumeric="1234567890"/>
+        </insert>
+        <insert tableName="inn_repository">
+            <column name="id" valueNumeric="0987654321"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="3" author="nullnumber1">
+        <createTable tableName="payment_document">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="payer_inn" type="varchar(255)"/>
+            <column name="payee_inn" type="varchar(255)"/>
+            <column name="organization_oktmo" type="varchar(255)"/>
+            <column name="amount" type="decimal(19, 2)"/>
+            <column name="date_of_payment" type="date"/>
+            <column name="payment_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_payment_document_payment"
+                             referencedTableName="payment" referencedColumnNames="id"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

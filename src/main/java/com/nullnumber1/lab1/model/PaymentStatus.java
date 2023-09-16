@@ -8,5 +8,9 @@ public enum PaymentStatus {
     FILLING_PAYEE,
     INN_VALIDATION,
     FILLING_DOCUMENT,
-    PROCESSED
+    PROCESSED,
+
+    APPROVED,
+
+    FAILED
 }

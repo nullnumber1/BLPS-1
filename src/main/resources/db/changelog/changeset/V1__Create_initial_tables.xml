@@ -40,19 +40,19 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="payment_type_id" type="bigint">
-                <constraints nullable="false" foreignKeyName="fk_payment_payment_type"
+                <constraints nullable="true" foreignKeyName="fk_payment_payment_type"
                              referencedTableName="payment_type" referencedColumnNames="id"/>
             </column>
             <column name="oktmo_id" type="bigint">
-                <constraints nullable="false" foreignKeyName="fk_payment_oktmo"
+                <constraints nullable="true" foreignKeyName="fk_payment_oktmo"
                              referencedTableName="oktmo" referencedColumnNames="id"/>
             </column>
             <column name="payer_id" type="bigint">
-                <constraints nullable="false" foreignKeyName="fk_payment_payer"
+                <constraints nullable="true" foreignKeyName="fk_payment_payer"
                              referencedTableName="payer" referencedColumnNames="id"/>
             </column>
             <column name="payee_id" type="bigint">
-                <constraints nullable="false" foreignKeyName="fk_payment_payee"
+                <constraints nullable="true" foreignKeyName="fk_payment_payee"
                              referencedTableName="payee" referencedColumnNames="id"/>
             </column>
             <column name="for_self" type="boolean"/>
@@ -92,4 +92,60 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="4" author="nullnumber1">
+        <createTable tableName="user">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="username" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="password" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="role">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="users_roles">
+
+            <column name="user_id" type="bigint">
+                <constraints nullable="false" primaryKeyName="pk_user_role"/>
+            </column>
+            <column name="role_id" type="bigint">
+                <constraints nullable="false" primaryKeyName="pk_user_role"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="refresh_token">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_refresh_token_user"
+                             referencedTableName="user" referencedColumnNames="id"/>
+            </column>
+            <column name="token" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="5" author="nullnumber1">
+        <insert tableName="role">
+            <column name="name" value="client"/>
+        </insert>
+        <insert tableName="role">
+            <column name="name" value="administrator"/>
+        </insert>
+    </changeSet>
+    <changeSet id="6" author="nullnumber1">
+        <addPrimaryKey tableName="users_roles" columnNames="user_id, role_id" constraintName="pk_user_role"/>
+    </changeSet>
 </databaseChangeLog>

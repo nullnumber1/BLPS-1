@@ -1,13 +1,18 @@
 package com.nullnumber1.lab1.model;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "payment")
 public class Payment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    private User user;
 
     @OneToOne(cascade = CascadeType.ALL)
     private PaymentType paymentType;
@@ -22,9 +27,6 @@ public class Payment {
 
     @OneToOne(cascade = CascadeType.ALL)
     private Payee payee;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    private PaymentDocument paymentDocument;
 
     private String status;
 
@@ -78,5 +80,17 @@ public class Payment {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

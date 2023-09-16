@@ -1,19 +1,22 @@
 package com.nullnumber1.lab1.model;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
-@Table(name = "payee")
-public class Payee {
-
+@Table(name = "role")
+public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
-
     private String name;
+    public Long getId() {
+        return id;
+    }
 
-    private Long INN;
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -21,13 +24,5 @@ public class Payee {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Long getINN() {
-        return INN;
-    }
-
-    public void setINN(Long INN) {
-        this.INN = INN;
     }
 }

@@ -1,17 +1,16 @@
 package com.nullnumber1.lab1.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import javax.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
+@Table(name = "payment_document")
 public class PaymentDocument {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     private Long payerInn;
@@ -25,6 +24,10 @@ public class PaymentDocument {
     private BigDecimal amount;
 
     private LocalDate dateOfPayment;
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Long getId() {
         return id;

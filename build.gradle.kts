@@ -1,6 +1,6 @@
 plugins {
     java
-    id("org.springframework.boot") version "3.0.6"
+    id("org.springframework.boot") version "2.7.11"
     id("io.spring.dependency-management") version "1.1.0"
 
 }
@@ -21,13 +21,13 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-validation")
+    implementation("org.springframework.boot:spring-boot-starter-security")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 
     /**
      * Database
      */
     implementation("org.liquibase:liquibase-core")
-    implementation("redis.clients:jedis:4.3.2")
     runtimeOnly("org.postgresql:postgresql")
 
     /**
@@ -35,10 +35,10 @@ dependencies {
      */
     implementation("com.fasterxml.jackson.core:jackson-databind:2.14.2")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.14.2")
-    implementation("org.slf4j:slf4j-api:2.0.5")
-    implementation("ch.qos.logback:logback-classic:1.4.6")
+    implementation("ch.qos.logback:logback-classic:1.2.12")
     implementation("org.projectlombok:lombok:1.18.26")
     annotationProcessor("org.projectlombok:lombok:1.18.26")
+    implementation("org.springframework.boot:spring-boot-starter-jta-atomikos:2.7.12")
 
     /**
      * Test containers
@@ -46,6 +46,8 @@ dependencies {
     implementation(platform("org.testcontainers:testcontainers-bom:1.17.6"))
     testImplementation("org.testcontainers:junit-jupiter")
     testImplementation("org.testcontainers:postgresql")
+    implementation("io.jsonwebtoken:jjwt-api:0.11.5")
+    runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5")
 
     /**
      * Tests
@@ -58,6 +60,11 @@ dependencies {
      * Pdf generation
      */
     implementation("com.itextpdf:itextpdf:5.5.13.3")
+
+    /**
+     * Documentation
+     */
+    implementation("org.springdoc:springdoc-openapi-ui:1.7.0")
 }
 
 tasks.withType<Test> {

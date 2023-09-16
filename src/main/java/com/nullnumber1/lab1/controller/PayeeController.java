@@ -3,6 +3,9 @@ package com.nullnumber1.lab1.controller;
 import com.nullnumber1.lab1.model.PaymentDocument;
 import com.nullnumber1.lab1.service.PaymentService;
 import com.nullnumber1.lab1.service.PdfGenerationService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/payments/{paymentId}")
 @Slf4j
+@Tag(name = "Payee management")
 public class PayeeController {
 
     private final PaymentService paymentService;
@@ -26,6 +30,11 @@ public class PayeeController {
     }
 
     @PostMapping("/payee")
+    @Operation(description = "Fill the organization payee", responses = {
+            @ApiResponse(responseCode = "200", description = "Payee was successfully filled"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
     public ResponseEntity<byte[]> fillPayee(
             @PathVariable(value = "paymentId") Long paymentId,
             @RequestParam(value = "name") String name,

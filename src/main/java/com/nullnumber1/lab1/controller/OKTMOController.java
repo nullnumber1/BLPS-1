@@ -1,6 +1,9 @@
 package com.nullnumber1.lab1.controller;
 
 import com.nullnumber1.lab1.service.PaymentService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/payments/{paymentId}")
 @RequiredArgsConstructor
 @Slf4j
+@Tag(name = "OKTMO management")
 public class OKTMOController {
 
     private PaymentService paymentService;
@@ -21,6 +25,10 @@ public class OKTMOController {
     }
 
     @PostMapping("/oktmo")
+    @Operation(description = "Fill the organization OKTMO code", responses = {
+            @ApiResponse(responseCode = "200", description = "OKTMO code was successfully filled"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
     public ResponseEntity<Void> fillOKTMO(
             @PathVariable(value = "paymentId") Long paymentId,
             @RequestParam(value = "code") String code

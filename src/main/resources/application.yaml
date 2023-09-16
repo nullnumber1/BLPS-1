@@ -14,6 +14,14 @@ spring:
       hibernate:
         format_sql: true
 
+  jta:
+    atomikos:
+      properties:
+        service: com.atomikos.icatch.standalone.UserTransactionServiceFactory
+        default-jta-timeout: 10000
+        threaded-two-phase-commit: true
+    enabled: true
+
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.xml
 
@@ -23,3 +31,10 @@ server:
 logging:
   level:
     root: info
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui-custom.html
+
+jwt:
+  secret: kgq0vbBCMf5Sk!aFCU%TB!Ii7$qrKGfT4fk2

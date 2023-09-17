@@ -1,6 +1,7 @@
 package com.nullnumber1.lab1.model;
 
-import javax.persistence.*;
+
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "inn_repository")

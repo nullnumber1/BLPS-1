@@ -1,7 +1,6 @@
 package com.nullnumber1.lab1.model;
 
-import javax.persistence.*;
-
+import jakarta.persistence.*;
 import java.math.BigDecimal;
 
 @Entity

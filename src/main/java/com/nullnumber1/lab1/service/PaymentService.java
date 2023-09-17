@@ -31,14 +31,14 @@ public class PaymentService {
     }
 
     @Transactional
-    public Long createPayment(Long userId) {
+    public Long createPayment(Integer userId) {
         if (hasIncompletePayments(userId)) {
-            throw new RuntimeException("User has incomplete payments");
+            return -1L;
         }
 
         Payment payment = new Payment();
         payment.setStatus(PaymentStatus.INITIATED.name());
-        payment.setUser(userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found")));
+        payment.setUser(userRepository.findById(Long.valueOf(userId)).orElseThrow(() -> new RuntimeException("User not found")));
         Payment savedPayment = paymentRepository.save(payment);
         return savedPayment.getId();
     }
@@ -50,8 +50,8 @@ public class PaymentService {
     }
 
     @Transactional(readOnly = true)
-    public boolean hasIncompletePayments(Long userId) {
-        List<Payment> payments = paymentRepository.findAllByPayerId(userId);
+    public boolean hasIncompletePayments(Integer userId) {
+        List<Payment> payments = paymentRepository.findAllByUserId(userId);
         return payments.stream().anyMatch(payment -> !payment.getStatus().equals(PaymentStatus.PROCESSED.name()));
     }
 

@@ -1,6 +1,6 @@
 package com.nullnumber1.lab1.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "payment")
@@ -32,6 +32,10 @@ public class Payment {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public PaymentType getPaymentType() {
@@ -80,10 +84,6 @@ public class Payment {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public User getUser() {

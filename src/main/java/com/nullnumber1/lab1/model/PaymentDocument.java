@@ -1,7 +1,6 @@
 package com.nullnumber1.lab1.model;
 
-import javax.persistence.*;
-
+import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -25,12 +24,12 @@ public class PaymentDocument {
 
     private LocalDate dateOfPayment;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getPayerInn() {

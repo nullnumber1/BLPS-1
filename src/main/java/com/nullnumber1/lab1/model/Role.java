@@ -1,28 +1,35 @@
 package com.nullnumber1.lab1.model;
 
-import javax.persistence.*;
-import java.util.Collection;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-@Entity
-@Table(name = "role")
-public class Role {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
-    public Long getId() {
-        return id;
-    }
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+import static com.nullnumber1.lab1.model.Permission.ADMIN_APPROVE;
 
-    public String getName() {
-        return name;
-    }
+@RequiredArgsConstructor
+public enum Role {
 
-    public void setName(String name) {
-        this.name = name;
+    USER(Collections.emptySet()),
+    ADMIN(
+            Set.of(
+                    ADMIN_APPROVE
+            )
+    );
+
+    @Getter
+    private final Set<Permission> permissions;
+
+    public List<SimpleGrantedAuthority> getAuthorities() {
+        var authorities = getPermissions()
+                .stream()
+                .map(permission -> new SimpleGrantedAuthority(permission.getPermission()))
+                .collect(Collectors.toList());
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + this.name()));
+        return authorities;
     }
 }

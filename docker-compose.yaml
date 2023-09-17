@@ -1,11 +1,11 @@
 version: '3'
 services:
-#  blps-1:
-#    image: nullnumber1/blps:latest
-#    ports:
-#      - '8080:8080'
-#    depends_on:
-#      - master_postgres
+  #  blps-1:
+  #    image: nullnumber1/blps:latest
+  #    ports:
+  #      - '8080:8080'
+  #    depends_on:
+  #      - master_postgres
 
   master_postgres:
     image: postgres:13.3
